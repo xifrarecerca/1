@@ -259,12 +259,12 @@
         <div class="row">
           <div>
             <label for="input-p" id="label-p">Nombre primer p (≥2):</label>
-            <input type="number" id="input-p" min="2" max="10000019" step="1" required aria-required="true" aria-label="Primer p" aria-describedby="p-help">
+            <input type="number" id="input-p" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="Primer p" aria-describedby="p-help">
             <span id="p-help" class="small"></span>
           </div>
           <div>
             <label for="input-q" id="label-q">Nombre primer q (≥2):</label>
-            <input type="number" id="input-q" min="2" max="10000019" step="1" required aria-required="true" aria-label="Primer q" aria-describedby="q-help">
+            <input type="number" id="input-q" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="Primer q" aria-describedby="q-help">
             <span id="q-help" class="small"></span>
           </div>
         </div>
@@ -339,7 +339,7 @@
         loading: 'Carregant Python...',
         invalidPrime: 'Almenys un dels nombres NO és primer.',
         samePrime: 'p i q han de ser <b>nombres primers diferents</b>!',
-        tooBig: 'Els nombres són massa grans (màxim: 10.000.019).',
+        tooBig: 'Els nombres són massa grans (màxim: 999.999.999.999.999.999).',
         notPrime: name => `El nombre <b>${name}</b> no és primer.`,
         notSupportedChar: 'El text conté caràcters no suportats (emojis o símbols especials).',
         selectLang: 'Canvia l\'idioma',
@@ -363,7 +363,7 @@
         loading: 'Cargando Python...',
         invalidPrime: '¡Alguno de los números NO es primo!',
         samePrime: '¡p y q deben ser <b>primos distintos</b>!',
-        tooBig: 'Los números son demasiado grandes (máximo: 10.000.019).',
+        tooBig: 'Los números son demasiado grandes (máximo: 999.999.999.999.999.999).',
         notPrime: name => `El número <b>${name}</b> no es primo.`,
         notSupportedChar: 'El texto contiene caracteres no soportados (emojis o símbolos especiales).',
         selectLang: 'Cambia idioma',
@@ -387,7 +387,7 @@
         loading: 'Loading Python...',
         invalidPrime: 'At least one number is NOT prime.',
         samePrime: 'p and q must be <b>different prime numbers</b>!',
-        tooBig: 'Numbers are too large (max: 10,000,019).',
+        tooBig: 'Numbers are too large (max: 999.999.999.999.999.999).',
         notPrime: name => `The number <b>${name}</b> is not prime.`,
         notSupportedChar: 'Text contains unsupported characters (emojis or special symbols).',
         selectLang: 'Change language',
@@ -411,7 +411,7 @@
         loading: 'Chargement de Python...',
         invalidPrime: 'Au moins un des nombres N\'EST PAS premier.',
         samePrime: 'p et q doivent être <b>des nombres premiers différents</b> !',
-        tooBig: 'Les nombres sont trop grands (max : 10 000 019).',
+        tooBig: 'Les nombres sont trop grands (max : 999.999.999.999.999.999).',
         notPrime: name => `Le nombre <b>${name}</b> n\'est pas premier.`,
         notSupportedChar: 'Le texte contient des caractères non pris en charge (emojis ou symboles spéciaux).',
         selectLang: 'Changer de langue',
@@ -519,13 +519,13 @@
       if (p && !esPrimer(p)) pHelp = texts[currentLang].notPrime('p');
       if (q && !esPrimer(q)) qHelp = texts[currentLang].notPrime('q');
       if (p && q && p===q) alertMsg = texts[currentLang].samePrime;
-      if ((p && p>10000019)||(q && q>10000019)) alertMsg = texts[currentLang].tooBig;
+      if ((p && p>999999999999999999)||(q && q>999999999999999999)) alertMsg = texts[currentLang].tooBig;
       document.getElementById('p-help').innerHTML = pHelp;
       document.getElementById('q-help').innerHTML = qHelp;
       document.getElementById('alert-xifrar').innerHTML = alertMsg;
       document.getElementById('alert-xifrar').style.display = (alertMsg||pHelp||qHelp)?'':'none';
       let showBits = document.getElementById('toggle-bits').checked;
-      if (p && q && esPrimer(p) && esPrimer(q) && p!==q && p<=10000019 && q<=10000019 && showBits) {
+      if (p && q && esPrimer(p) && esPrimer(q) && p!==q && p<=999999999999999999 && q<=999999999999999999 && showBits) {
         let n = p*q;
         document.getElementById('claus-bits').innerHTML = texts[currentLang].bits(n);
         document.getElementById('claus-bits').style.display = '';
@@ -648,9 +648,8 @@ def desxifrar_text(xifrat_blocs, clau_priv):
     }
     carregarPyodide();
 
-    function textValid(text) {
-  // Allows any Unicode character, plus basic punctuation
-  return /^[\p{L}\p{N}\s\.,;:?!¡¿'"()\-_{}\[\]\n\r]+$/u.test(text);
+   function textValid(text) {
+  return /^[\p{L}\p{N}\p{P}\p{S}\p{M}\p{Zs}\s]+$/u.test(text);
 }
 
     // --------- Xifrar -----------
@@ -679,7 +678,7 @@ def desxifrar_text(xifrat_blocs, clau_priv):
         document.getElementById('alert-xifrar').style.display = '';
         return;
       }
-      if (p > 10000019 || q > 10000019) {
+      if (p > 999999999999999999 || q > 999999999999999999) {
         document.getElementById('alert-xifrar').innerHTML = texts[currentLang].tooBig;
         document.getElementById('alert-xifrar').style.display = '';
         return;
