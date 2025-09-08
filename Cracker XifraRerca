@@ -1,0 +1,73 @@
+import time
+import random
+import math
+
+e = —
+n = —
+ciphertext = [--]  # 
+
+def pollards_rho(n):
+   if n % 2 == 0:
+       return 2
+   x = random.randint(2, n-1)
+   y = x
+   c = random.randint(1, n-1)
+   d = 1
+   while d == 1:
+       x = (x*x + c) % n
+       y = (y*y + c) % n
+       y = (y*y + c) % n
+       d = math.gcd(abs(x - y), n)
+   if d == n:
+       return pollards_rho(n)
+   return d
+
+
+def extended_gcd(a, b):
+   if a == 0:
+       return (b, 0, 1)
+   else:
+       g, y, x = extended_gcd(b % a, a)
+       return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+   g, x, y = extended_gcd(a, m)
+   if g != 1:
+       raise Exception('Modular inverse does not exist')
+   return x % m
+
+
+def decrypt(cipher, d, n, block_size):
+   message = ""
+   for c in cipher:
+       m = pow(c, d, n)
+       block_bytes = m.to_bytes(block_size, 'big')
+       message += block_bytes.decode('latin1')
+   return message
+
+
+def get_block_size(n):
+   return (n.bit_length() + 7) // 8
+
+
+t0 = time.perf_counter()
+p = pollards_rho(n)
+q = n // p
+t1 = time.perf_counter()
+
+
+phi = (p-1)*(q-1)
+d = modinv(e, phi)
+
+block_size = get_block_size(n)  # automatically detect block size
+
+
+t2 = time.perf_counter()
+decrypted = decrypt(ciphertext, d, n, block_size)
+t3 = time.perf_counter()
+
+print(f"Factors found: p={p}, q={q}")
+print("Decrypted message:", decrypted)
+print(f"Factorization time: {(t1 - t0)*1000:.3f} ms")
+print(f"Decryption time: {(t3 - t2)*1000:.3f} ms")
+print(f"Total time: {(t3 - t0)*1000:.3f} ms")
