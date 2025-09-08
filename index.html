@@ -324,7 +324,7 @@
     &copy; 2025 XifraRecerca · Fet per Marc San José
   </div>
   <script>
-    // ========== Internaconnexió ==========
+    // =========Hola, soc en Marc de l'agost, espero que surti bé el codi, perquè porto quatre hores modificant el codi en base a pàgines molt estranyes ==========
     const texts = {
       ca: {
         welcome: 'Benvingut a XifraRecerca, el teu xifrador i desxifrador de confiança,<br>desenvolupat per Marc San José Casals com a part del treball de recerca de batxillerat.<br>Per qualsevol dubte o suggerència, no dubtis a contactar-me a msanjosecasals@inspineda.com',
@@ -652,7 +652,7 @@ def desxifrar_text(xifrat_blocs, clau_priv):
   return /^[\p{L}\p{N}\p{P}\p{S}\p{M}\p{Zs}\s]+$/u.test(text);
 }
 
-    // --------- Xifrar -----------
+    // ---------Aquesta part del codi fa la màgia del xifratge, així que atent  -----------
     document.getElementById('form-xifrar').onsubmit = async function(e) {
       e.preventDefault();
       document.getElementById('small-primes-warning').style.display = 'none';
@@ -770,7 +770,7 @@ for par in xifrat:
       document.getElementById('spinner').style.display = 'none';
     };
 
-    // --------- Desxifrar -----------
+    // --------- per desxifrar aquí està la màgia -----------
     document.getElementById('form-desxifrar').onsubmit = async function(e) {
       e.preventDefault();
       if (!pyodideReady) { alert(texts[currentLang].loading); return; }
@@ -830,8 +830,9 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
         if (ev.key==='Enter' || ev.key===' ') { mostrarPantalla('inici'); }
       });
     });
-
+// --------- i aqui acaba el codi 😁 -----------
     mostrarPantalla('inici');
   </script>
 </body>
 </html>
+
