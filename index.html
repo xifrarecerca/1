@@ -471,13 +471,11 @@
       document.getElementById('download-desxifrat').innerText = t.downloadDecrypted;
       document.getElementById('back-desxifrar').innerText = t.backToStart;
 
-      // Optionally update aria-labels if you want live accessibility
       document.getElementById('pantalla-xifrar').setAttribute('aria-label', t.encryptTitle);
       document.getElementById('pantalla-desxifrar').setAttribute('aria-label', t.decryptTitle);
       document.getElementById('pantalla-inici').setAttribute('aria-label', t.welcome.replace(/<br>/g, ' '));
     }
 
-    // ===== THEME TOGGLE =====
     function setTheme(theme) {
       document.body.setAttribute('data-theme', theme);
       document.getElementById('toggle-dark').classList.toggle('active', theme === "dark");
@@ -486,17 +484,15 @@
     document.getElementById('toggle-dark').onclick = () => setTheme('dark');
     document.getElementById('toggle-light').onclick = () => setTheme('light');
 
-    // ===== LANGUAGE SELECTOR =====
     document.getElementById('lang-select').onchange = function() {
       setLang(this.value);
       validatePrimes();
     };
 
-    // ====== INITIALIZE UI ======
     setLang('ca');
     setTheme('light');
 
-    // ========== Pyodide & Python code (NO TOCAR) ==============
+    // ========== amics aqui passa la màgia jaja, és on el xifra el teu text ==============
     let pyodideReady = false;
     let pyodide = null;
     const pythonCode = `
@@ -795,7 +791,7 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
       document.getElementById('spinner').style.display = 'none';
     };
 
-    // --------- Pantalla i validació primes igual ---------
+    // --------- comprovem que siguin els nombres primers, pensava que 21 ho era, però veig que no ---------
     function mostrarPantalla(quin) {
       document.getElementById('pantalla-inici').style.display = quin === 'inici' ? '' : 'none';
       document.getElementById('pantalla-xifrar').style.display = quin === 'xifrar' ? '' : 'none';
@@ -830,7 +826,7 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
       document.getElementById('q-help').innerHTML = qHelp;
       document.getElementById('alert-xifrar').innerHTML = alertMsg;
       document.getElementById('alert-xifrar').style.display = (alertMsg||pHelp||qHelp)?'':'none';
-      // bits info només si vols mostrar-ho manualment
+      // a punt d'acabar el codi, porto 5 hores aquí a veure si funciona
       document.getElementById('claus-bits').innerHTML = '';
       document.getElementById('claus-bits').style.display = 'none';
     }
@@ -847,3 +843,4 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
   </script>
 </body>
 </html>
+
