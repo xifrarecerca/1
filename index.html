@@ -176,22 +176,6 @@
     .mode-toggle button { padding: 6px 18px; font-size: 1.00em; background: var(--blue-faded); color: var(--blue-accent); border-radius:20px; border:none;}
     .mode-toggle button.active { background: var(--blue-accent); color: #fff;}
     .lang-selector select { padding:8px 14px; border-radius:10px; font-size:1.03em; border:1.5px solid var(--border);}
-    /* Opcions avançades */
-    .advanced-toggle { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.14em; margin-top: var(--gap-sm); margin-bottom: var(--gap-sm);}
-    .advanced-content { display: none; margin-top: 4px; }
-    .opcions-advanced {
-      border:1.5px dashed var(--border);
-      border-radius: var(--radius-lg);
-      padding: var(--gap-sm) var(--gap-md);
-      background: var(--result-bg);
-      margin-bottom: var(--gap-sm);
-      font-size: 1.02em;
-    }
-    .opcions-advanced label { font-weight:400; }
-    [data-theme="dark"] .opcions-advanced { background: #232742; color: #fff;}
-    [data-theme="dark"] .small { color: #ccc;}
-    [data-theme="dark"] label { color: #fff;}
-    [data-theme="dark"] .alert { color: #ff9494;}
     .warning-primes {
       background: #fde5e5;
       color: #a00;
@@ -203,20 +187,18 @@
       animation: fadeinalert .7s cubic-bezier(.51,.91,.36,1.18);
     }
     [data-theme="dark"] .warning-primes { background: #3b1b1b; color: #ff9494; }
-    /* Modern effect */
-    .container, .result, .opcions-advanced, .warning-primes {
+    .container, .result, .warning-primes {
       transition: background 0.18s, color 0.18s, box-shadow 0.18s;
     }
     .result b, .result span.small, .warning-primes { font-weight: 500;}
     .result b { color: var(--blue-accent);}
-    /* Responsive for mobile */
     @media (max-width: 700px) {
       .container { max-width: 99vw; padding: var(--gap-md) 3vw var(--gap-md) 3vw;}
       h1, h2 { font-size: 1.45em; }
     }
     @media (max-width: 450px) {
       .container { padding: 3vw 2vw;}
-      .result, .opcions-advanced { padding: 10px; }
+      .result { padding: 10px; }
       h1, h2 { font-size: 1.1em; }
       .mode-lang-bar { gap: 12px;}
       .mode-toggle button, .lang-selector select { font-size: 0.94em;}
@@ -241,81 +223,63 @@
     </div>
     <div id="pantalla-inici">
       <h1>XifraRecerca</h1>
-      <p id="welcome-msg">
-        Benvingut a XifraRecerca, el teu xifrador i desxifrador de confiança,<br>
-       desenvolupat per Marc San José Casals com a part del treball de recerca de batxillerat. <br>
-	   Per qualsevol dubte o suggerència, no dubtis a contactar-me a msanjosecasals@inspineda.com
-      </p>
+      <p id="welcome-msg"></p>
       <div style="margin-top:36px; display:flex; flex-direction:column; gap:var(--gap-md);">
-        <button onclick="mostrarPantalla('xifrar')" aria-label="Xifrar un missatge" id="btn-xifrar">Xifrar un missatge</button>
-        <button onclick="mostrarPantalla('desxifrar')" aria-label="Desxifrar un missatge" id="btn-desxifrar">Desxifrar un missatge</button>
+        <button onclick="mostrarPantalla('xifrar')" aria-label="" id="btn-xifrar"></button>
+        <button onclick="mostrarPantalla('desxifrar')" aria-label="" id="btn-desxifrar"></button>
       </div>
     </div>
-    <div id="pantalla-xifrar" style="display:none;" aria-label="Pantalla xifrar">
-      <h2 id="title-xifrar">🔐 Xifrar un missatge</h2>
-      <form id="form-xifrar" autocomplete="off" aria-label="Formulari xifrar" role="form">
-        <label for="input-text" id="label-text">Text original:</label>
+    <div id="pantalla-xifrar" style="display:none;" aria-label="">
+      <h2 id="title-xifrar"></h2>
+      <form id="form-xifrar" autocomplete="off" aria-label="" role="form">
+        <label for="input-text" id="label-text"></label>
         <textarea id="input-text" rows="3" required aria-required="true"></textarea>
         <div class="row">
           <div>
-            <label for="input-p" id="label-p">Nombre primer p (≥2):</label>
-            <input type="number" id="input-p" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="Primer p" aria-describedby="p-help">
+            <label for="input-p" id="label-p"></label>
+            <input type="number" id="input-p" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="" aria-describedby="p-help">
             <span id="p-help" class="small"></span>
           </div>
           <div>
-            <label for="input-q" id="label-q">Nombre primer q (≥2):</label>
-            <input type="number" id="input-q" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="Primer q" aria-describedby="q-help">
+            <label for="input-q" id="label-q"></label>
+            <input type="number" id="input-q" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="" aria-describedby="q-help">
             <span id="q-help" class="small"></span>
           </div>
         </div>
-        <div class="advanced-toggle" id="toggle-advanced"><span>⚙️</span><span id="advanced-title">Opcions avançades</span><span id="advanced-arrow">▼</span></div>
-        <div class="advanced-content" id="advanced-content">
-          <div class="opcions-advanced">
-            <label for="input-e" id="label-e">Valor de la clau pública e:</label>
-            <input type="number" id="input-e" value="65537" min="3" step="2"><br>
-            <label>
-              <input type="checkbox" id="toggle-bits">
-              <span id="text-toggle-bits">Mostra la mida de la clau</span>
-            </label><br>
-            <label>
-              <input type="checkbox" id="toggle-bytes">
-              <span id="text-toggle-bytes">Mostra el pes en bytes del missatge xifrat</span>
-            </label>
-          </div>
-        </div>
+        <!-- AVANÇADES ELIMINADES -->
         <div id="claus-bits" class="small" aria-live="polite" style="display:none;"></div>
         <div id="claus-bytes" class="small" aria-live="polite" style="display:none;"></div>
         <div id="claus-ms" class="small" aria-live="polite" style="display:none;"></div>
-        <button type="submit" aria-label="Xifrar" id="btn-submit-xifrar">Xifrar</button>
+        <button type="submit" aria-label="" id="btn-submit-xifrar"></button>
       </form>
       <div id="alert-xifrar" class="alert" style="display:none;" role="alert"></div>
       <div id="spinner"><img src="https://cdn.jsdelivr.net/gh/marcsse/xifrarecerca/spinner.svg" alt="Carregant..." width="32"><br><span id="load-msg"></span></div>
       <div id="result-xifrar" class="result" style="display:none;" aria-live="polite"></div>
-      <button id="copy-result" style="display:none;">Copia al porta-retalls</button>
-      <button id="download-xifrar" class="download-btn" style="display:none;">Descarrega resultat (.txt)</button>
+      <button id="copy-result" style="display:none;"></button>
+      <button id="download-xifrar" class="download-btn" style="display:none;"></button>
       <div class="warning-primes" id="small-primes-warning" style="display:none;"></div>
       <div class="back" onclick="mostrarPantalla('inici')" tabindex="0" id="back-xifrar">← Torna a l'inici</div>
     </div>
-    <div id="pantalla-desxifrar" style="display:none;" aria-label="Pantalla desxifrar">
-      <h2 id="title-desxifrar">🔓 Desxifrar un missatge</h2>
-      <form id="form-desxifrar" autocomplete="off" aria-label="Formulari desxifrar" role="form">
-        <label for="input-xifrat" id="label-xifrat">Missatge xifrat (llista de nombres separats per comes):</label>
+    <div id="pantalla-desxifrar" style="display:none;" aria-label="">
+      <h2 id="title-desxifrar"></h2>
+      <form id="form-desxifrar" autocomplete="off" aria-label="" role="form">
+        <label for="input-xifrat" id="label-xifrat"></label>
         <textarea id="input-xifrat" rows="3" required aria-required="true"></textarea>
         <div class="row">
           <div>
-            <label for="input-d" id="label-d">Clau privada d:</label>
+            <label for="input-d" id="label-d"></label>
             <input type="number" id="input-d" min="1" step="1" required aria-required="true">
           </div>
           <div>
-            <label for="input-n" id="label-n">Clau privada n:</label>
+            <label for="input-n" id="label-n"></label>
             <input type="number" id="input-n" min="2" step="1" required aria-required="true">
           </div>
         </div>
-        <button type="submit" aria-label="Desxifrar" id="btn-submit-desxifrar">Desxifrar</button>
+        <button type="submit" aria-label="" id="btn-submit-desxifrar"></button>
       </form>
       <div id="result-desxifrar" class="result" style="display:none;" aria-live="polite"></div>
-      <button id="copy-desxifrat" style="display:none;">Copia al porta-retalls</button>
-      <button id="download-desxifrat" class="download-btn" style="display:none;">Descarrega desxifrat (.txt)</button>
+      <button id="copy-desxifrat" style="display:none;"></button>
+      <button id="download-desxifrat" class="download-btn" style="display:none;"></button>
       <div class="small" id="claus-ms-desxifrar" style="display:none;"></div>
       <div class="back" onclick="mostrarPantalla('inici')" tabindex="0" id="back-desxifrar">← Torna a l'inici</div>
     </div>
@@ -324,10 +288,10 @@
     &copy; 2025 XifraRecerca · Fet per Marc San José
   </div>
   <script>
-    // =========Hola, soc en Marc de l'agost, espero que surti bé el codi, perquè porto quatre hores modificant el codi en base a pàgines molt estranyes ==========
+    // ===== MULTILANGUAGE TEXTS =====
     const texts = {
       ca: {
-        welcome: 'Benvingut a XifraRecerca, el teu xifrador i desxifrador de confiança,<br>desenvolupat per Marc San José Casals com a part del treball de recerca de batxillerat.<br>Per qualsevol dubte o suggerència, no dubtis a contactar-me a msanjosecasals@inspineda.com',
+        welcome: 'Benvingut a XifraRecerca, el teu xifrador i desxifrador de confiança,<br>desenvolupat per Marc San José Casals com a part del treball de recerca de batxillerat.<br>Per qualsevol dubte o suggerència, no dubtis a contactar-me a msanjosecasals@inspineda.com, Si no saps quins nombres primers utilitzar, aquests dos són els que et recomano: són els més segurs i compatibles amb l’app.p = 1000000000000399, q =1000000000000037',
         xifrar: 'Xifrar un missatge',
         desxifrar: 'Desxifrar un missatge',
         copy: 'Copia al porta-retalls',
@@ -348,10 +312,22 @@
         toggleBits: 'Mostra la mida de la clau',
         toggleBytes: 'Mostra el pes en bytes del missatge xifrat',
         smallPrimesWarning: '⚠️ ATENCIÓ: Bones, mag de la criptografia! Has triat nombres massa petits per xifrar... (Ideal per a demostracions, però ni s’aconsella enviar secrets de veritat així!) Si no vols que t’enxampin, et recomano que utilitzis nombres primers d’almenys sis xifres, com per exemple p = 104729 i q =1000039.',
-        thanks: 'Gràcies per desxifrar amb XifraRecerca! Torna a l\'inici per xifrar o desxifrar un altre missatge.'
+        thanks: 'Gràcies per desxifrar amb XifraRecerca! Torna a l\'inici per xifrar o desxifrar un altre missatge.',
+        originalText: 'Text original:',
+        primeP: 'Nombre primer p (≥2):',
+        primeQ: 'Nombre primer q (≥2):',
+        encryptTitle: '🔐 Xifrar un missatge',
+        decryptTitle: '🔓 Desxifrar un missatge',
+        encryptedInput: 'Missatge xifrat (llista de nombres separats per comes):',
+        privateD: 'Clau privada d:',
+        privateN: 'Clau privada n:',
+        encrypt: 'Xifrar',
+        decrypt: 'Desxifrar',
+        downloadDecrypted: 'Descarrega desxifrat (.txt)',
+        backToStart: "← Torna a l'inici",
       },
       es: {
-        welcome: 'Bienvenido a XifraRecerca, tu cifrador y descifrador de confianza,<br>desarrollado por Marc San José Casals como parte del trabajo de investigación de bachillerato.<br>Para cualquier duda o sugerencia, contáctame en msanjosecasals@inspineda.com',
+        welcome: 'Bienvenido a XifraRecerca, tu cifrador y descifrador de confianza,<br>desarrollado por Marc San José Casals como parte del trabajo de investigación de bachillerato.<br>Para cualquier duda o sugerencia, contáctame en msanjosecasals@inspineda.com, Si no sabes qué números primos deberías usar, estos dos son los que te recomiendo; son los números primos más seguros compatibles con la app: p = 1000000000000399, q = 1000000000000037.',
         xifrar: 'Cifrar un mensaje',
         desxifrar: 'Descifrar un mensaje',
         copy: 'Copiar al portapapeles',
@@ -372,10 +348,22 @@
         toggleBits: 'Mostrar tamaño de la clave',
         toggleBytes: 'Mostrar peso en bytes del mensaje cifrado',
         smallPrimesWarning: '⚠️ ¡Atención, mago de la criptografía! Has elegido números demasiado pequeños para cifrar... (Ideal para demostraciones, pero no se recomienda enviar secretos reales así). Si no quieres que te pillen, te recomiendo usar números primos de al menos seis cifras, como p = 104729 y q = 1000039.',
-        thanks: '¡Gracias por descifrar con XifraRecerca! Vuelve al inicio para cifrar o descifrar otro mensaje.'
+        thanks: '¡Gracias por descifrar con XifraRecerca! Vuelve al inicio para cifrar o descifrar otro mensaje.',
+        originalText: 'Texto original:',
+        primeP: 'Número primo p (≥2):',
+        primeQ: 'Número primo q (≥2):',
+        encryptTitle: '🔐 Cifrar un mensaje',
+        decryptTitle: '🔓 Descifrar un mensaje',
+        encryptedInput: 'Mensaje cifrado (lista de números separados por comas):',
+        privateD: 'Clave privada d:',
+        privateN: 'Clave privada n:',
+        encrypt: 'Cifrar',
+        decrypt: 'Descifrar',
+        downloadDecrypted: 'Descarga descifrado (.txt)',
+        backToStart: "← Volver al inicio",
       },
       en: {
-        welcome: 'Welcome to XifraRecerca, your trusted encryptor and decryptor,<br>developed by Marc San José Casals as part of his high school research project.<br>For any questions or suggestions, contact me at msanjosecasals@inspineda.com',
+        welcome: 'Welcome to XifraRecerca, your trusted encryptor and decryptor,<br>developed by Marc San José Casals as part of his high school research project.<br>For any questions or suggestions, contact me at msanjosecasals@inspineda.com, If you don’t know which prime numbers you should use, these two are the ones I recommend; they are the safest prime numbers compatible with the app: p = 1000000000000399, q = 1000000000000037.',
         xifrar: 'Encrypt a message',
         desxifrar: 'Decrypt a message',
         copy: 'Copy to clipboard',
@@ -396,18 +384,30 @@
         toggleBits: 'Show key size',
         toggleBytes: 'Show encrypted message size in bytes',
         smallPrimesWarning: '⚠️ ATTENTION: Crypto wizard! You\'ve chosen numbers that are too small for encryption... (Good for demos, but not recommended for real secrets!) If you don\'t want to get caught, use primes with at least six digits, like p = 104729 and q = 1000039.',
-        thanks: 'Thanks for decrypting with XifraRecerca! Go back to start to encrypt or decrypt another message.'
+        thanks: 'Thanks for decrypting with XifraRecerca! Go back to start to encrypt or decrypt another message.',
+        originalText: 'Original text:',
+        primeP: 'Prime number p (≥2):',
+        primeQ: 'Prime number q (≥2):',
+        encryptTitle: '🔐 Encrypt a message',
+        decryptTitle: '🔓 Decrypt a message',
+        encryptedInput: 'Encrypted message (comma-separated list of numbers):',
+        privateD: 'Private key d:',
+        privateN: 'Private key n:',
+        encrypt: 'Encrypt',
+        decrypt: 'Decrypt',
+        downloadDecrypted: 'Download decrypted (.txt)',
+        backToStart: "← Back to start",
       },
       fr: {
-        welcome: 'Bienvenue sur XifraRecerca, ton outil de chiffrement/déchiffrement de confiance,<br>développé par Marc San José Casals dans le cadre d\'un travail de recherche au lycée.<br>Pour toute question ou suggestion, contacte-moi à msanjosecasals@inspineda.com',
+        welcome: 'Bienvenue sur XifraRecerca, ton outil de chiffrement/déchiffrement de confiance,<br>développé par Marc San José Casals dans le cadre d\'un travail de recherche au lycée.<br>Pour toute question ou suggestion, contacte-moi à msanjosecasals@inspineda.com, Si vous ne savez pas quels nombres premiers utiliser, ceux-ci sont ceux que je recommande ; ce sont les nombres premiers les plus sûrs compatibles avec l’application : p = 1000000000000399, q = 1000000000000037.',
         xifrar: 'Chiffrer un message',
         desxifrar: 'Déchiffrer un message',
         copy: 'Copier dans le presse-papiers',
         copied: 'Copié dans le presse-papiers !',
         downloading: 'Télécharger le résultat (.txt)',
-        bits: n => `Taille de n : <b>${n.toString(2).length}</b> bits`,
-        bytes: b => `Poids en octets du message chiffré : <b>${b}</b> octets`,
-        ms: ms => `Temps de chiffrement/déchiffrement : <b>${ms}</b> ms`,
+        bits: n => `Taille de n : <b>${n.toString(2).length}</b> bits`,
+        bytes: b => `Poids en octets du message chiffré : <b>${b}</b> octets`,
+        ms: ms => `Temps de chiffrement/déchiffrement : <b>${ms}</b> ms`,
         loading: 'Chargement de Python...',
         invalidPrime: 'Au moins un des nombres N\'EST PAS premier.',
         samePrime: 'p et q doivent être <b>des nombres premiers différents</b> !',
@@ -416,130 +416,87 @@
         notSupportedChar: 'Le texte contient des caractères non pris en charge (emojis ou symboles spéciaux).',
         selectLang: 'Changer de langue',
         advanced: 'Options avancées',
-        labelE: 'Valeur de la clé publique e :',
+        labelE: 'Valeur de la clé publique e :',
         toggleBits: 'Afficher la taille de la clé',
         toggleBytes: 'Afficher le poids en octets du message chiffré',
-        smallPrimesWarning: '⚠️ ATTENTION : Magicien de la crypto ! Tu as choisi des nombres trop petits pour le chiffrement... (Bien pour les démos, mais pas pour des secrets réels !) Pour ne pas te faire piéger, utilise des premiers d\'au moins six chiffres, comme p = 104729 et q = 1000039.',
-        thanks: 'Merci pour le déchiffrement avec XifraRecerca ! Retour à l\'accueil pour chiffrer ou déchiffrer un autre message.'
+        smallPrimesWarning: '⚠️ ATTENTION : Magicien de la crypto ! Tu as choisi des nombres trop petits pour le chiffrement... (Bien pour les démos, mais pas pour des secrets réels !) Pour ne pas te faire piéger, utilise des premiers d\'au moins six chiffres, comme p = 104729 et q = 1000039.',
+        thanks: 'Merci pour le déchiffrement avec XifraRecerca ! Retour à l\'accueil pour chiffrer ou déchiffrer un autre message.',
+        originalText: 'Texte original :',
+        primeP: 'Nombre premier p (≥2) :',
+        primeQ: 'Nombre premier q (≥2) :',
+        encryptTitle: '🔐 Chiffrer un message',
+        decryptTitle: '🔓 Déchiffrer un message',
+        encryptedInput: 'Message chiffré (liste de nombres séparés par des virgules) :',
+        privateD: 'Clé privée d :',
+        privateN: 'Clé privée n :',
+        encrypt: 'Chiffrer',
+        decrypt: 'Déchiffrer',
+        downloadDecrypted: 'Télécharger déchiffré (.txt)',
+        backToStart: "← Retour à l'accueil",
       }
     };
+
     let currentLang = 'ca';
-    function setLang(l) {
-      currentLang = l;
-      document.getElementById('welcome-msg').innerHTML = texts[l].welcome;
-      document.getElementById('toggle-dark').title = l === 'en' ? 'Dark mode' : (l === 'es' ? 'Modo oscuro' : (l === 'fr' ? 'Mode sombre' : 'Mode fosc'));
-      document.getElementById('toggle-light').title = l === 'en' ? 'Light mode' : (l === 'es' ? 'Modo claro' : (l==='fr'?'Mode clair':'Mode clar'));
-      document.getElementById('btn-xifrar').textContent = texts[l].xifrar;
-      document.getElementById('btn-desxifrar').textContent = texts[l].desxifrar;
-      document.getElementById('title-xifrar').textContent = `🔐 ${texts[l].xifrar}`;
-      document.getElementById('label-text').textContent = texts[l].xifrar + ':';
-      document.getElementById('label-p').textContent = l === 'fr' ? 'Nombre premier p (≥2):' : (l === 'en' ? 'Prime number p (≥2):' : (l === 'es' ? 'Número primo p (≥2):' : 'Nombre primer p (≥2):'));
-      document.getElementById('label-q').textContent = l === 'fr' ? 'Nombre premier q (≥2):' : (l === 'en' ? 'Prime number q (≥2):' : (l === 'es' ? 'Número primo q (≥2):' : 'Nombre primer q (≥2):'));
-      document.getElementById('advanced-title').textContent = texts[l].advanced;
-      document.getElementById('label-e').textContent = texts[l].labelE;
-      document.getElementById('text-toggle-bits').textContent = texts[l].toggleBits;
-      document.getElementById('text-toggle-bytes').textContent = texts[l].toggleBytes;
-      document.getElementById('btn-submit-xifrar').textContent = texts[l].xifrar;
-      document.getElementById('title-desxifrar').textContent = `🔓 ${texts[l].desxifrar}`;
-      document.getElementById('label-xifrat').textContent = l === 'fr' ? 'Message chiffré (liste de nombres séparés par des virgules):' : (l === 'en' ? 'Encrypted message (comma separated numbers):' : (l === 'es' ? 'Mensaje cifrado (lista de números separados por comas):' : 'Missatge xifrat (llista de nombres separats per comes):'));
-      document.getElementById('label-d').textContent = l === 'fr' ? 'Clé privée d:' : (l === 'en' ? 'Private key d:' : (l === 'es' ? 'Clave privada d:' : 'Clau privada d:'));
-      document.getElementById('label-n').textContent = l === 'fr' ? 'Clé privée n:' : (l === 'en' ? 'Private key n:' : (l === 'es' ? 'Clave privada n:' : 'Clau privada n:'));
-      document.getElementById('btn-submit-desxifrar').textContent = texts[l].desxifrar;
-      document.getElementById('copy-result').textContent = texts[l].copy;
-      document.getElementById('download-xifrar').textContent = texts[l].downloading;
-      document.getElementById('copy-desxifrat').textContent = texts[l].copy;
-      document.getElementById('download-desxifrat').textContent = l === 'fr' ? "Télécharger le texte déchiffré (.txt)" : (l === 'en' ? "Download plaintext (.txt)" : (l === 'es' ? "Descarga descifrado (.txt)" : "Descarrega desxifrat (.txt)"));
-      document.getElementById('lang-select').title = texts[l].selectLang;
-      document.getElementById('back-xifrar').innerHTML = l==='en'?'← Back to start':(l==='es'?'← Volver al inicio':(l==='fr'?'← Retour à l\'accueil':'← Torna a l\'inici'));
-      document.getElementById('back-desxifrar').innerHTML = l==='en'?'← Back to start':(l==='es'?'← Volver al inicio':(l==='fr'?'← Retour à l\'accueil':'← Torna a l\'inici'));
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = texts[lang];
+
+      // Inici
+      document.getElementById('welcome-msg').innerHTML = t.welcome;
+      document.getElementById('btn-xifrar').innerText = t.xifrar;
+      document.getElementById('btn-xifrar').setAttribute('aria-label', t.xifrar);
+      document.getElementById('btn-desxifrar').innerText = t.desxifrar;
+      document.getElementById('btn-desxifrar').setAttribute('aria-label', t.desxifrar);
+
+      // Xifrar
+      document.getElementById('title-xifrar').innerText = t.encryptTitle;
+      document.getElementById('label-text').innerText = t.originalText;
+      document.getElementById('label-p').innerText = t.primeP;
+      document.getElementById('label-q').innerText = t.primeQ;
+      document.getElementById('btn-submit-xifrar').innerText = t.encrypt;
+      document.getElementById('btn-submit-xifrar').setAttribute('aria-label', t.encrypt);
+      document.getElementById('copy-result').innerText = t.copy;
+      document.getElementById('download-xifrar').innerText = t.downloading;
+      document.getElementById('back-xifrar').innerText = t.backToStart;
+
+      // Desxifrar
+      document.getElementById('title-desxifrar').innerText = t.decryptTitle;
+      document.getElementById('label-xifrat').innerText = t.encryptedInput;
+      document.getElementById('label-d').innerText = t.privateD;
+      document.getElementById('label-n').innerText = t.privateN;
+      document.getElementById('btn-submit-desxifrar').innerText = t.decrypt;
+      document.getElementById('btn-submit-desxifrar').setAttribute('aria-label', t.decrypt);
+      document.getElementById('copy-desxifrat').innerText = t.copy;
+      document.getElementById('download-desxifrat').innerText = t.downloadDecrypted;
+      document.getElementById('back-desxifrar').innerText = t.backToStart;
+
+      // Optionally update aria-labels if you want live accessibility
+      document.getElementById('pantalla-xifrar').setAttribute('aria-label', t.encryptTitle);
+      document.getElementById('pantalla-desxifrar').setAttribute('aria-label', t.decryptTitle);
+      document.getElementById('pantalla-inici').setAttribute('aria-label', t.welcome.replace(/<br>/g, ' '));
+    }
+
+    // ===== THEME TOGGLE =====
+    function setTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      document.getElementById('toggle-dark').classList.toggle('active', theme === "dark");
+      document.getElementById('toggle-light').classList.toggle('active', theme === "light");
+    }
+    document.getElementById('toggle-dark').onclick = () => setTheme('dark');
+    document.getElementById('toggle-light').onclick = () => setTheme('light');
+
+    // ===== LANGUAGE SELECTOR =====
+    document.getElementById('lang-select').onchange = function() {
+      setLang(this.value);
       validatePrimes();
-    }
-    document.getElementById('lang-select').addEventListener('change', e=>setLang(e.target.value));
-    setLang('ca');
-
-    function setTheme(t) {
-      document.body.setAttribute('data-theme', t);
-      document.getElementById('toggle-dark').classList.toggle('active', t==='dark');
-      document.getElementById('toggle-light').classList.toggle('active', t==='light');
-    }
-    document.getElementById('toggle-dark').onclick = ()=>setTheme('dark');
-    document.getElementById('toggle-light').onclick = ()=>setTheme('light');
-
-    document.getElementById('toggle-advanced').onclick = function() {
-      let content = document.getElementById('advanced-content');
-      let arrow = document.getElementById('advanced-arrow');
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        arrow.textContent = '▼';
-      } else {
-        content.style.display = 'block';
-        arrow.textContent = '▲';
-      }
     };
 
-    function mostrarPantalla(quin) {
-      document.getElementById('pantalla-inici').style.display = quin === 'inici' ? '' : 'none';
-      document.getElementById('pantalla-xifrar').style.display = quin === 'xifrar' ? '' : 'none';
-      document.getElementById('pantalla-desxifrar').style.display = quin === 'desxifrar' ? '' : 'none';
-      document.getElementById('result-xifrar').style.display = 'none';
-      document.getElementById('download-xifrar').style.display = 'none';
-      document.getElementById('copy-result').style.display = 'none';
-      document.getElementById('result-desxifrar').style.display = 'none';
-      document.getElementById('copy-desxifrat').style.display = 'none';
-      document.getElementById('download-desxifrat').style.display = 'none';
-      document.getElementById('alert-xifrar').style.display = 'none';
-      document.getElementById('claus-bits').style.display = 'none';
-      document.getElementById('claus-bytes').style.display = 'none';
-      document.getElementById('claus-ms').style.display = 'none';
-      document.getElementById('claus-ms-desxifrar').style.display = 'none';
-      document.getElementById('small-primes-warning').style.display = 'none';
-      if (quin === 'xifrar') document.getElementById('form-xifrar').reset();
-      if (quin === 'desxifrar') document.getElementById('form-desxifrar').reset();
-      document.getElementById('input-e').value = '65537';
-      document.getElementById('toggle-bits').checked = false;
-      document.getElementById('toggle-bytes').checked = false;
-      document.getElementById('advanced-content').style.display = 'none';
-      document.getElementById('advanced-arrow').textContent = '▼';
-    }
+    // ====== INITIALIZE UI ======
+    setLang('ca');
+    setTheme('light');
 
-    function esPrimer(n) {
-      if (n<2) return false;
-      if (n===2) return true;
-      if (n%2===0) return false;
-      let sqrt = Math.floor(Math.sqrt(n));
-      for(let i=3;i<=sqrt;i+=2) if (n%i===0) return false;
-      return true;
-    }
-    function validatePrimes() {
-      let p = parseInt(document.getElementById('input-p').value,10);
-      let q = parseInt(document.getElementById('input-q').value,10);
-      let alertMsg = '';
-      let pHelp = '';
-      let qHelp = '';
-      if (p && !esPrimer(p)) pHelp = texts[currentLang].notPrime('p');
-      if (q && !esPrimer(q)) qHelp = texts[currentLang].notPrime('q');
-      if (p && q && p===q) alertMsg = texts[currentLang].samePrime;
-      if ((p && p>999999999999999999)||(q && q>999999999999999999)) alertMsg = texts[currentLang].tooBig;
-      document.getElementById('p-help').innerHTML = pHelp;
-      document.getElementById('q-help').innerHTML = qHelp;
-      document.getElementById('alert-xifrar').innerHTML = alertMsg;
-      document.getElementById('alert-xifrar').style.display = (alertMsg||pHelp||qHelp)?'':'none';
-      let showBits = document.getElementById('toggle-bits').checked;
-      if (p && q && esPrimer(p) && esPrimer(q) && p!==q && p<=999999999999999999 && q<=999999999999999999 && showBits) {
-        let n = p*q;
-        document.getElementById('claus-bits').innerHTML = texts[currentLang].bits(n);
-        document.getElementById('claus-bits').style.display = '';
-      } else {
-        document.getElementById('claus-bits').innerHTML = '';
-        document.getElementById('claus-bits').style.display = 'none';
-      }
-    }
-    document.getElementById('input-p').addEventListener('blur', validatePrimes);
-    document.getElementById('input-q').addEventListener('blur', validatePrimes);
-    document.getElementById('input-p').addEventListener('input', validatePrimes);
-    document.getElementById('input-q').addEventListener('input', validatePrimes);
-    document.getElementById('toggle-bits').addEventListener('change', validatePrimes);
-
+    // ========== Pyodide & Python code (NO TOCAR) ==============
     let pyodideReady = false;
     let pyodide = null;
     const pythonCode = `
@@ -547,7 +504,6 @@ def mcd(a, b):
     while b:
         a, b = b, a % b
     return a
-
 def invers_mod(a, m):
     t, nova_t = 0, 1
     r, nova_r = m, a
@@ -560,7 +516,6 @@ def invers_mod(a, m):
     if t < 0:
         t += m
     return t
-
 def es_primer(n):
     if n < 2:
         return False
@@ -572,7 +527,6 @@ def es_primer(n):
         if n % i == 0:
             return False
     return True
-
 def generar_claus_segures(p, q, e=65537):
     if not es_primer(p) or not es_primer(q):
         raise Exception("Almenys un dels nombres NO és primer.")
@@ -588,7 +542,6 @@ def generar_claus_segures(p, q, e=65537):
     if d is None:
         raise Exception("No s'ha pogut calcular la clau privada amb aquests nombres. Prova amb altres nombres primers.")
     return (e, n), (d, n)
-
 def text_a_blocs(text, mida_bloc):
     blocs = []
     for i in range(0, len(text), mida_bloc):
@@ -598,11 +551,9 @@ def text_a_blocs(text, mida_bloc):
             num = num * 256 + ord(c)
         blocs.append(num)
     return blocs
-
 def xifrar_blocs(blocs, clau_pub):
     e, n = clau_pub
     return [pow(b, e, n) for b in blocs]
-
 def xifrar_paragrafs(text, mida_bloc, clau_pub):
     paragrafs = text.split('\\n')
     xifrat_paragrafs = []
@@ -611,7 +562,6 @@ def xifrar_paragrafs(text, mida_bloc, clau_pub):
         xifrat = xifrar_blocs(blocs, clau_pub)
         xifrat_paragrafs.append(xifrat)
     return xifrat_paragrafs
-
 def blocs_a_text(blocs, mida_bloc):
     text = ""
     for num in blocs:
@@ -622,11 +572,9 @@ def blocs_a_text(blocs, mida_bloc):
         chars.reverse()
         text += "".join(chars)
     return text
-
 def desxifrar_blocs(blocs_xifrats, clau_priv):
     d, n = clau_priv
     return [pow(b, d, n) for b in blocs_xifrats]
-
 def desxifrar_text(xifrat_blocs, clau_priv):
     d, n = clau_priv
     mida_bloc = 1
@@ -648,11 +596,19 @@ def desxifrar_text(xifrat_blocs, clau_priv):
     }
     carregarPyodide();
 
-   function textValid(text) {
-  return /^[\p{L}\p{N}\p{P}\p{S}\p{M}\p{Zs}\s]+$/u.test(text);
-}
+    function esPrimer(n) {
+      if (n<2) return false;
+      if (n===2) return true;
+      if (n%2===0) return false;
+      let sqrt = Math.floor(Math.sqrt(n));
+      for(let i=3;i<=sqrt;i+=2) if (n%i===0) return false;
+      return true;
+    }
+    function textValid(text) {
+      return /^[\p{L}\p{N}\p{P}\p{S}\p{M}\p{Zs}\s]+$/u.test(text);
+    }
 
-    // ---------Aquesta part del codi fa la màgia del xifratge, així que atent  -----------
+    // ========== XIFRAR ==============
     document.getElementById('form-xifrar').onsubmit = async function(e) {
       e.preventDefault();
       document.getElementById('small-primes-warning').style.display = 'none';
@@ -667,7 +623,7 @@ def desxifrar_text(xifrat_blocs, clau_priv):
         document.getElementById('alert-xifrar').style.display = '';
         return;
       }
-      if (!text.trim()) return alert('Introdueix un text!');
+      if (!text.trim()) return alert(texts[currentLang].originalText);
       if (!esPrimer(p) || !esPrimer(q)) {
         document.getElementById('alert-xifrar').innerHTML = texts[currentLang].invalidPrime;
         document.getElementById('alert-xifrar').style.display = '';
@@ -686,10 +642,10 @@ def desxifrar_text(xifrat_blocs, clau_priv):
       document.getElementById('alert-xifrar').style.display = 'none';
       document.getElementById('spinner').style.display = '';
       document.getElementById('load-msg').textContent = texts[currentLang].loading;
-      let eValue = parseInt(document.getElementById('input-e').value, 10);
-      if (isNaN(eValue) || eValue < 3) eValue = 65537;
-      let showBits = document.getElementById('toggle-bits').checked;
-      let showBytes = document.getElementById('toggle-bytes').checked;
+      // El valor d'e queda per defecte (65537) i no editable
+      let eValue = 65537;
+      let showBits = false;
+      let showBytes = false;
       let start = performance.now();
       try {
         pyodide.runPython(`
@@ -701,7 +657,8 @@ n = clau_pub[1]
 mida_bloc = 1
 while (256 ** (mida_bloc + 1)) < n:
     mida_bloc += 1
-text_usuari = """${text.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"""
+import json
+text_usuari = json.loads('${JSON.stringify(text)}')
 xifrat = xifrar_paragrafs(text_usuari, mida_bloc, clau_pub)
 xifrat_concatenat = []
 for par in xifrat:
@@ -714,27 +671,30 @@ for par in xifrat:
         let n = clau_pub[1];
         let end = performance.now();
         let ms = Math.round(end - start);
+        let maxWidth = Math.max(...xifrat_concatenat.map(n => n.toString().length));
+        let padded = xifrat_concatenat.map(n => n.toString().padStart(maxWidth, '0'));
+        let continuous = `${maxWidth}:${padded.join('')}`;
+        let txtToCopy = `Missatge xifrat (string):\n${continuous}\nClau pública (e, n): (${clau_pub[0]}, ${clau_pub[1]})\nClau privada (d, n): (${clau_priv[0]}, ${clau_priv[1]})`;
 
-        let txtToCopy = `Missatge xifrat:\n${xifrat_concatenat.join(', ')}\n\nClau pública (e, n): (${clau_pub[0]}, ${clau_pub[1]})\nClau privada (d, n): (${clau_priv[0]}, ${clau_priv[1]})`;
-
-        let res = `<b>Missatge xifrat:</b><br>
-        <span class="small">Llista de nombres (separa per comes per desxifrar):</span><br>
-        ${xifrat_concatenat.join(', ')}<br>
-        <br><b>Clau pública (e, n):</b> (${clau_pub[0]}, ${clau_pub[1]})<br>
-        <b>Clau privada (d, n):</b> (${clau_priv[0]}, ${clau_priv[1]})<br>
-        <span class="small">Mida de bloc per xifrar: ${mida_bloc} caràcters</span>`;
+        let t = texts[currentLang];
+        let res = `<b>Missatge xifrat (string):</b><br>
+<span class="small">Amplada de bloc detectada: <b>${maxWidth}</b> dígits (afegida automàticament)</span><br>
+<code>${continuous}</code><br>
+<br><b>Clau pública (e, n):</b> (${clau_pub[0]}, ${clau_pub[1]})<br>
+<b>Clau privada (d, n):</b> (${clau_priv[0]}, ${clau_priv[1]})<br>
+<span class="small">${t.bits(n)}<br>${t.bytes(new TextEncoder().encode(xifrat_concatenat.join(',')).length)}<br>${t.ms(ms)}</span>`;
         document.getElementById('result-xifrar').innerHTML = res;
         document.getElementById('result-xifrar').style.display = '';
         document.getElementById('claus-bits').style.display = showBits ? '' : 'none';
         document.getElementById('claus-bytes').style.display = showBytes ? '' : 'none';
         document.getElementById('claus-ms').style.display = '';
-        document.getElementById('claus-bits').innerHTML = showBits ? texts[currentLang].bits(n) : '';
+        document.getElementById('claus-bits').innerHTML = showBits ? t.bits(n) : '';
         let bytes = new TextEncoder().encode(xifrat_concatenat.join(',')).length;
-        document.getElementById('claus-bytes').innerHTML = showBytes ? texts[currentLang].bytes(bytes) : '';
-        document.getElementById('claus-ms').innerHTML = texts[currentLang].ms(ms);
+        document.getElementById('claus-bytes').innerHTML = showBytes ? t.bytes(bytes) : '';
+        document.getElementById('claus-ms').innerHTML = t.ms(ms);
         document.getElementById('download-xifrar').style.display = '';
         document.getElementById('download-xifrar').onclick = function() {
-          let txt = `${txtToCopy}\n${showBits ? texts[currentLang].bits(n).replace(/<b>|<\/b>/g, '') : ''}\n${showBytes ? texts[currentLang].bytes(bytes).replace(/<b>|<\/b>/g, '') : ''}\n${texts[currentLang].ms(ms)}`;
+          let txt = `${txtToCopy}\n${showBits ? t.bits(n) : ''}\n${showBytes ? t.bytes(bytes) : ''}\n${t.ms(ms)}`;
           let blob = new Blob([txt], {type: 'text/plain'});
           let a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
@@ -744,21 +704,22 @@ for par in xifrat:
         document.getElementById('copy-result').style.display = '';
         document.getElementById('copy-result').onclick = () => {
           navigator.clipboard.writeText(txtToCopy).then(() => {
-            alert(texts[currentLang].copied);
+            alert(t.copied);
           });
         };
         if ((parseInt(document.getElementById('input-p').value,10)<1000)||(parseInt(document.getElementById('input-q').value,10)<1000)) {
-          document.getElementById('small-primes-warning').innerHTML = texts[currentLang].smallPrimesWarning;
+          document.getElementById('small-primes-warning').innerHTML = t.smallPrimesWarning;
           document.getElementById('small-primes-warning').style.display = '';
         }
       } catch(err) {
         let msg = err.message || '';
+        let t = texts[currentLang];
         if (msg.indexOf('NO és primer') !== -1) {
-          msg = texts[currentLang].invalidPrime;
+          msg = t.invalidPrime;
         } else if (msg.indexOf('No s\'ha pogut calcular la clau privada') !== -1) {
-          msg = "Error: No s'ha pogut calcular la clau privada amb aquests nombres. Prova amb altres nombres primers.";
+          msg = t.invalidPrime;
         } else if (msg.indexOf('diferents') !== -1) {
-          msg = texts[currentLang].samePrime;
+          msg = t.samePrime;
         } else {
           msg = "Error inesperat. Comprova els nombres i el text.";
         }
@@ -769,20 +730,29 @@ for par in xifrat:
       }
       document.getElementById('spinner').style.display = 'none';
     };
-
-    // --------- per desxifrar aquí està la màgia -----------
+    // ========== DESXIFRAR ==============
     document.getElementById('form-desxifrar').onsubmit = async function(e) {
       e.preventDefault();
       if (!pyodideReady) { alert(texts[currentLang].loading); return; }
       let xifrat_str = document.getElementById('input-xifrat').value.trim();
+      let t = texts[currentLang];
+      let match = xifrat_str.match(/^(\d+):(.*)$/);
+      if (!match) return alert('El missatge xifrat ha d\'incloure la mida del bloc, ex: 4:00230044...');
+      let blocWidth = parseInt(match[1], 10);
+      let cifratNums = match[2];
+      if (isNaN(blocWidth) || blocWidth <= 0) return alert('Format d\'amplada bloc invàlid!');
+      if (!/^\d+$/.test(cifratNums)) return alert('El missatge xifrat només pot contenir dígits després dels dos punts.');
+      if (cifratNums.length % blocWidth !== 0) return alert('El missatge xifrat té una longitud incorrecta o li falta algun dígit.');
+      let blocs = [];
+      for(let i = 0; i < cifratNums.length; i += blocWidth){
+        let chunk = cifratNums.substr(i, blocWidth);
+        blocs.push(parseInt(chunk, 10));
+      }
       let d = parseInt(document.getElementById('input-d').value, 10);
       let n = parseInt(document.getElementById('input-n').value, 10);
-      if (!xifrat_str) return alert('Introdueix el missatge xifrat!');
-      if (isNaN(d) || isNaN(n)) return alert('Introdueix la clau privada!');
-      let blocs = xifrat_str.split(',').map(x => parseInt(x.trim(), 10)).filter(x => !isNaN(x));
       if (!blocs.length) return alert('El missatge xifrat no és vàlid!');
       document.getElementById('spinner').style.display = '';
-      document.getElementById('load-msg').textContent = texts[currentLang].loading;
+      document.getElementById('load-msg').textContent = t.loading;
       let start = performance.now();
       try {
         pyodide.runPython(`
@@ -793,20 +763,20 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
         let text_desxifrat = pyodide.globals.get('text_desxifrat');
         let end = performance.now();
         let ms = Math.round(end - start);
-        let res = `<b>Text desxifrat:</b><br>${text_desxifrat || '[Buit o error de desxifrat]'}<br>
-        <br><span class="small">${texts[currentLang].thanks}</span>`;
+        let res = `<b>${t.decryptTitle.replace(/🔓 /,"")}</b><br>${text_desxifrat || '[Buit o error de desxifrat]'}<br>
+        <br><span class="small">${t.thanks}</span>`;
         document.getElementById('result-desxifrar').innerHTML = res;
         document.getElementById('result-desxifrar').style.display = '';
         document.getElementById('copy-desxifrat').style.display = '';
         document.getElementById('download-desxifrat').style.display = '';
         document.getElementById('copy-desxifrat').onclick = () => {
-          let txt = `Text desxifrat:\n${text_desxifrat || '[Buit o error de desxifrat]'}\n${texts[currentLang].thanks}\n${texts[currentLang].ms(ms)}`;
+          let txt = `${t.decryptTitle}:\n${text_desxifrat || '[Buit o error de desxifrat]'}\n${t.thanks}\n${t.ms(ms)}`;
           navigator.clipboard.writeText(txt).then(() => {
-            alert(texts[currentLang].copied);
+            alert(t.copied);
           });
         };
         document.getElementById('download-desxifrat').onclick = function() {
-          let txt = `Text desxifrat:\n${text_desxifrat || '[Buit o error de desxifrat]'}\n${texts[currentLang].thanks}\n${texts[currentLang].ms(ms)}`;
+          let txt = `${t.decryptTitle}:\n${text_desxifrat || '[Buit o error de desxifrat]'}\n${t.thanks}\n${t.ms(ms)}`;
           let blob = new Blob([txt], {type: 'text/plain'});
           let a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
@@ -814,9 +784,9 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
           a.click();
         };
         document.getElementById('claus-ms-desxifrar').style.display = '';
-        document.getElementById('claus-ms-desxifrar').innerHTML = texts[currentLang].ms(ms);
+        document.getElementById('claus-ms-desxifrar').innerHTML = t.ms(ms);
       } catch(err) {
-        document.getElementById('result-desxifrar').innerHTML = 'Error en desxifrar! Revisa la clau privada i el missatge.';
+        document.getElementById('result-desxifrar').innerHTML = 'Error en desxifrar! Revisa la clau privada i el missatge.<br>' + (err.message || err);
         document.getElementById('result-desxifrar').style.display = '';
         document.getElementById('copy-desxifrat').style.display = 'none';
         document.getElementById('download-desxifrat').style.display = 'none';
@@ -825,14 +795,55 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
       document.getElementById('spinner').style.display = 'none';
     };
 
+    // --------- Pantalla i validació primes igual ---------
+    function mostrarPantalla(quin) {
+      document.getElementById('pantalla-inici').style.display = quin === 'inici' ? '' : 'none';
+      document.getElementById('pantalla-xifrar').style.display = quin === 'xifrar' ? '' : 'none';
+      document.getElementById('pantalla-desxifrar').style.display = quin === 'desxifrar' ? '' : 'none';
+      document.getElementById('result-xifrar').style.display = 'none';
+      document.getElementById('download-xifrar').style.display = 'none';
+      document.getElementById('copy-result').style.display = 'none';
+      document.getElementById('result-desxifrar').style.display = 'none';
+      document.getElementById('copy-desxifrat').style.display = 'none';
+      document.getElementById('download-desxifrat').style.display = 'none';
+      document.getElementById('alert-xifrar').style.display = 'none';
+      document.getElementById('claus-bits').style.display = 'none';
+      document.getElementById('claus-bytes').style.display = 'none';
+      document.getElementById('claus-ms').style.display = 'none';
+      document.getElementById('claus-ms-desxifrar').style.display = 'none';
+      document.getElementById('small-primes-warning').style.display = 'none';
+      if (quin === 'xifrar') document.getElementById('form-xifrar').reset();
+      if (quin === 'desxifrar') document.getElementById('form-desxifrar').reset();
+    }
+    function validatePrimes() {
+      let p = parseInt(document.getElementById('input-p').value,10);
+      let q = parseInt(document.getElementById('input-q').value,10);
+      let alertMsg = '';
+      let pHelp = '';
+      let qHelp = '';
+      let t = texts[currentLang];
+      if (p && !esPrimer(p)) pHelp = t.notPrime('p');
+      if (q && !esPrimer(q)) qHelp = t.notPrime('q');
+      if (p && q && p===q) alertMsg = t.samePrime;
+      if ((p && p>999999999999999999)||(q && q>999999999999999999)) alertMsg = t.tooBig;
+      document.getElementById('p-help').innerHTML = pHelp;
+      document.getElementById('q-help').innerHTML = qHelp;
+      document.getElementById('alert-xifrar').innerHTML = alertMsg;
+      document.getElementById('alert-xifrar').style.display = (alertMsg||pHelp||qHelp)?'':'none';
+      // bits info només si vols mostrar-ho manualment
+      document.getElementById('claus-bits').innerHTML = '';
+      document.getElementById('claus-bits').style.display = 'none';
+    }
+    document.getElementById('input-p').addEventListener('blur', validatePrimes);
+    document.getElementById('input-q').addEventListener('blur', validatePrimes);
+    document.getElementById('input-p').addEventListener('input', validatePrimes);
+    document.getElementById('input-q').addEventListener('input', validatePrimes);
     document.querySelectorAll('.back').forEach(el=>{
-      el.addEventListener('keypress', function(ev){
+      el.addEventListener('keypress',function(ev){
         if (ev.key==='Enter' || ev.key===' ') { mostrarPantalla('inici'); }
       });
     });
-// --------- i aqui acaba el codi 😁 -----------
     mostrarPantalla('inici');
   </script>
 </body>
 </html>
-
