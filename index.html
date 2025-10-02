@@ -237,12 +237,12 @@
         <div class="row">
           <div>
             <label for="input-p" id="label-p"></label>
-            <input type="number" id="input-p" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="" aria-describedby="p-help">
+            <input type="number" id="input-p" min="11" max="999999999999999999" step="1" required aria-required="true" aria-label="" aria-describedby="p-help">
             <span id="p-help" class="small"></span>
           </div>
           <div>
             <label for="input-q" id="label-q"></label>
-            <input type="number" id="input-q" min="2" max="999999999999999999" step="1" required aria-required="true" aria-label="" aria-describedby="q-help">
+            <input type="number" id="input-q" min="11" max="999999999999999999" step="1" required aria-required="true" aria-label="" aria-describedby="q-help">
             <span id="q-help" class="small"></span>
           </div>
         </div>
@@ -314,8 +314,8 @@
         smallPrimesWarning: '⚠️ ATENCIÓ: Bones, mag de la criptografia! Has triat nombres massa petits per xifrar... (Ideal per a demostracions, però ni s’aconsella enviar secrets de veritat així!) Si no vols que t’enxampin, et recomano que utilitzis nombres primers d’almenys sis xifres, com per exemple p = 104729 i q =1000039.',
         thanks: 'Gràcies per desxifrar amb XifraRecerca! Torna a l\'inici per xifrar o desxifrar un altre missatge.',
         originalText: 'Text original:',
-        primeP: 'Nombre primer p (≥2):',
-        primeQ: 'Nombre primer q (≥2):',
+        primeP: 'Nombre primer p (≥11):',
+        primeQ: 'Nombre primer q (≥11):',
         encryptTitle: '🔐 Xifrar un missatge',
         decryptTitle: '🔓 Desxifrar un missatge',
         encryptedInput: 'Missatge xifrat (llista de nombres separats per comes):',
@@ -350,8 +350,8 @@
         smallPrimesWarning: '⚠️ ¡Atención, mago de la criptografía! Has elegido números demasiado pequeños para cifrar... (Ideal para demostraciones, pero no se recomienda enviar secretos reales así). Si no quieres que te pillen, te recomiendo usar números primos de al menos seis cifras, como p = 104729 y q = 1000039.',
         thanks: '¡Gracias por descifrar con XifraRecerca! Vuelve al inicio para cifrar o descifrar otro mensaje.',
         originalText: 'Texto original:',
-        primeP: 'Número primo p (≥2):',
-        primeQ: 'Número primo q (≥2):',
+        primeP: 'Número primo p (≥11):',
+        primeQ: 'Número primo q (≥11):',
         encryptTitle: '🔐 Cifrar un mensaje',
         decryptTitle: '🔓 Descifrar un mensaje',
         encryptedInput: 'Mensaje cifrado (lista de números separados por comas):',
@@ -386,8 +386,8 @@
         smallPrimesWarning: '⚠️ ATTENTION: Crypto wizard! You\'ve chosen numbers that are too small for encryption... (Good for demos, but not recommended for real secrets!) If you don\'t want to get caught, use primes with at least six digits, like p = 104729 and q = 1000039.',
         thanks: 'Thanks for decrypting with XifraRecerca! Go back to start to encrypt or decrypt another message.',
         originalText: 'Original text:',
-        primeP: 'Prime number p (≥2):',
-        primeQ: 'Prime number q (≥2):',
+        primeP: 'Prime number p (≥11):',
+        primeQ: 'Prime number q (≥11):',
         encryptTitle: '🔐 Encrypt a message',
         decryptTitle: '🔓 Decrypt a message',
         encryptedInput: 'Encrypted message (comma-separated list of numbers):',
@@ -422,8 +422,8 @@
         smallPrimesWarning: '⚠️ ATTENTION : Magicien de la crypto ! Tu as choisi des nombres trop petits pour le chiffrement... (Bien pour les démos, mais pas pour des secrets réels !) Pour ne pas te faire piéger, utilise des premiers d\'au moins six chiffres, comme p = 104729 et q = 1000039.',
         thanks: 'Merci pour le déchiffrement avec XifraRecerca ! Retour à l\'accueil pour chiffrer ou déchiffrer un autre message.',
         originalText: 'Texte original :',
-        primeP: 'Nombre premier p (≥2) :',
-        primeQ: 'Nombre premier q (≥2) :',
+        primeP: 'Nombre premier p (≥11) :',
+        primeQ: 'Nombre premier q (≥11) :',
         encryptTitle: '🔐 Chiffrer un message',
         decryptTitle: '🔓 Déchiffrer un message',
         encryptedInput: 'Message chiffré (liste de nombres séparés par des virgules) :',
@@ -843,4 +843,5 @@ text_desxifrat = desxifrar_text(xifrat_blocs, clau_priv)
   </script>
 </body>
 </html>
+
 
